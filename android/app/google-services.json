@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "615582581605",
+    "project_id": "flutter-fb-1d2c7",
+    "storage_bucket": "flutter-fb-1d2c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615582581605:android:c2c8cc1b1cf5e40296d78c",
+        "android_client_info": {
+          "package_name": "com.example.appk_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAde_TD0ZkVkbSxDMIc9-K30-bPJJdOtjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615582581605:android:6a8ea6b12a78bf4b96d78c",
+        "android_client_info": {
+          "package_name": "com.example.tryfb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAde_TD0ZkVkbSxDMIc9-K30-bPJJdOtjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
