@@ -1,5 +1,9 @@
+import 'package:appk_flutter/models/expense_model.dart';
+import 'package:appk_flutter/models/user_model.dart';
+import 'package:appk_flutter/viewmodels/expense_vm.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AddExpenses extends StatefulWidget {
@@ -16,6 +20,8 @@ class _AddExpensesState extends State<AddExpenses> {
   TextEditingController priceCont = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
+  final UserController userC = Get.put(UserController());
+
   final List<String> primaryItems = [
     'Food',
     'Shelter',
@@ -30,7 +36,7 @@ class _AddExpensesState extends State<AddExpenses> {
     'Savings and emergency fund',
     'Debt repayment',
   ];
-  String? selectedPrimary;
+  String? selectedDescription;
 
   final List<String> secondaryItems = [
     'Entertainment',
@@ -46,7 +52,7 @@ class _AddExpensesState extends State<AddExpenses> {
     'Luxury items and indulgences',
     'Charitable contributions',
   ];
-  String? selectedSecondary;
+  // String? selectedDescription;
 
   final List<String> classifiedItems = [
     'Primary',
@@ -56,21 +62,6 @@ class _AddExpensesState extends State<AddExpenses> {
 
   DateTime selectedDate = DateTime.now();
   DateTime now = DateTime.now();
-
-  // Future<DateTime?> selectDate(BuildContext context) async {
-  //   final DateTime picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: now,
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2101),
-  //   );
-  //   if (picked != null && picked != selectedDate) {
-  //     setState(() {
-  //       selectedDate = picked;
-  //       dateController.text = DateFormat('yyyy-MM-dd').format(picked);
-  //     });
-  //   }
-  // }
 
   @override
   void initState() {
@@ -85,6 +76,9 @@ class _AddExpensesState extends State<AddExpenses> {
     String date = selectedDate.day.toString();
     String month = selectedDate.month.toString();
     String year = selectedDate.year.toString();
+
+    String currentUserId = userC.uid.value;
+    final expenseViewModel = ExpenseViewModel(currentUserId);
 
     return SingleChildScrollView(
       child: Column(
@@ -238,13 +232,12 @@ class _AddExpensesState extends State<AddExpenses> {
                               ),
                             ))
                         .toList(),
-                    value: selectedPrimary,
+                    value: selectedDescription,
                     onChanged: (value) {
                       setState(() {
-                        selectedPrimary = value;
-                        selectedSecondary = null;
+                        selectedDescription = value;
                       });
-                      print(selectedPrimary);
+                      print(selectedDescription);
                     },
                     buttonStyleData: ButtonStyleData(
                       height: 50,
@@ -312,13 +305,13 @@ class _AddExpensesState extends State<AddExpenses> {
                               ),
                             ))
                         .toList(),
-                    value: selectedSecondary,
+                    value: selectedDescription,
                     onChanged: (value) {
                       setState(() {
-                        selectedSecondary = value;
-                        selectedPrimary = null;
+                        selectedDescription = value;
+                        // selectedPrimary = null;
                       });
-                      print(selectedSecondary);
+                      print(selectedDescription);
                       // print(date);
                     },
                     buttonStyleData: ButtonStyleData(
@@ -393,6 +386,48 @@ class _AddExpensesState extends State<AddExpenses> {
                     prefixIcon: Icon(Icons.price_change),
                   ),
                 ),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onPressed: () async {
+                        Expense addNewEx = Expense(
+                            id: '',
+                            userId: currentUserId,
+                            itemDescription: nameCont.text,
+                            expensesCategory:
+                                selectedClassifiedValue.toString(),
+                            categoryDescription: selectedDescription.toString(),
+                            date: date,
+                            year: year,
+                            month: month,
+                            itemPrice: int.parse(priceCont.text));
+
+                        await expenseViewModel.addExpense(addNewEx);
+                        setState(() {
+                          // selectedClassifiedValue.clear
+                          // selectedDescription = '';
+                          nameCont.clear();
+                          priceCont.clear();
+                          date = now.day.toString();
+                          year = now.year.toString();
+                          month = now.month.toString();
+                        });
+                      },
+                      child: const Text(
+                        'Add',
+                        style: TextStyle(color: Color(0xff26619C)),
+                      )),
+                )
               ],
             ),
           )
@@ -405,13 +440,29 @@ class _AddExpensesState extends State<AddExpenses> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Date'),
-            Text(DateFormat('dd-MM-yyyy').format(selectedDate)),
-          ],
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            decoration: const BoxDecoration(color: Colors.white),
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Date',
+                    style: TextStyle(color: Color(0xff26619C), fontSize: 18),
+                  ),
+                  Text(
+                    DateFormat('dd-MM-yyyy').format(selectedDate),
+                    style: const TextStyle(color: Color(0xff26619C)),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         ElevatedButton(
             style: ElevatedButton.styleFrom(
