@@ -1,3 +1,4 @@
+import 'package:appk_flutter/controller/update_controller.dart';
 import 'package:appk_flutter/firebase_options.dart';
 import 'package:appk_flutter/screens/home.dart';
 import 'package:appk_flutter/screens/login_handler.dart';
@@ -20,8 +21,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -33,6 +32,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const LoggedInHandler(),
+      initialBinding: BindingsBuilder(() {
+        Get.put(ExpenseController());
+      }),
     );
   }
 }

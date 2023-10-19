@@ -1,4 +1,7 @@
+import 'package:appk_flutter/controller/update_controller.dart';
+import 'package:appk_flutter/models/expense_model.dart';
 import 'package:appk_flutter/models/user_model.dart';
+import 'package:appk_flutter/screens/update_screen.dart';
 import 'package:appk_flutter/viewmodels/expense_vm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +17,7 @@ class ListExpenses extends StatefulWidget {
 
 class _ListExpensesState extends State<ListExpenses> {
   final UserController userC = Get.put(UserController());
+  final ExpenseController expenseController = Get.put(ExpenseController());
 
   final ExpenseViewModel getVm =
       Get.put(ExpenseViewModel(userController.uid.value));
@@ -78,12 +82,14 @@ class _ListExpensesState extends State<ListExpenses> {
                       title: Text(data['itemDescription']),
                       subtitle: Column(
                         children: [
-                          Row(
-                            children: [
-                              Text('IDR : ${data['itemPrice'].toString()}'),
-                              const Text(" || "),
-                              Text(data['categoryDescription'].toString()),
-                            ],
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                  'IDR : ${data['itemPrice'].toString()}')),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                'Category ${data['categoryDescription'].toString()}'),
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -92,9 +98,34 @@ class _ListExpensesState extends State<ListExpenses> {
                           )
                         ],
                       ),
-                      trailing: IconButton(
-                          onPressed: () => expenseVm.deleteExpense(docId),
-                          icon: const Icon(Icons.delete)),
+                      trailing: Wrap(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                final selectedExpense = Expense(
+                                  id: docId,
+                                  userId: data['userId'],
+                                  itemDescription: data['itemDescription'],
+                                  expensesCategory: data['expensesCategory'],
+                                  categoryDescription:
+                                      data['categoryDescription'],
+                                  date: data['date'],
+                                  year: data['year'],
+                                  month: data['month'],
+                                  itemPrice: data['itemPrice'],
+                                );
+
+                                expenseController
+                                    .updateSelectedExpense(selectedExpense);
+
+                                Get.to(() => const UpdateExpenses());
+                              },
+                              icon: const Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () => expenseVm.deleteExpense(docId),
+                              icon: const Icon(Icons.delete)),
+                        ],
+                      ),
                     ),
                   ),
                 ),

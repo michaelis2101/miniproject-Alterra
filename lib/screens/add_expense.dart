@@ -72,6 +72,15 @@ class _AddExpensesState extends State<AddExpenses> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameCont.dispose();
+    priceCont.dispose();
+    dateController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String date = selectedDate.day.toString();
     String month = selectedDate.month.toString();
