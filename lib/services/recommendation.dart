@@ -30,7 +30,7 @@ class RecService {
       };
 
       String promptData =
-          'I get a salary of $income rupiah each month, right now i have savings about $savings rupiah and i also have debt for about $debt rupiah that need to pay about $monthlyDebtPayment rupiah for every month. Then i also have goal to receive $goal in the future. Please provide a financial plan for $days days. Please format your answer as follows: food : Rp....., bills : Rp....., savings : Rp....., Savings : Rp..... Transportation : Rp...., Entertainment : Rp...., Miscellaneous : Rp....., Debt Payment: Rp...., Advice: "you can achieve ..... for .... year..." without any additional explanations. If the debt is 0 or null please also provide it on your response like Debt Payment: Rp.0. Make the advice is short straight to the point';
+          'I get a salary of $income rupiah each month, right now i have savings about $savings rupiah and i also have debt for about $debt rupiah that need to pay about $monthlyDebtPayment rupiah for every month. Then i also have goal to receive $goal in the future. Please provide a financial plan for $days days. Please format your answer as follows: food : Rp....., bills : Rp....., savings : Rp....., Savings : Rp....., Transportation : Rp...., Entertainment : Rp...., Miscellaneous : Rp....., Debt Payment: Rp...., Advice: "you can achieve ..... for .... year..." without any additional explanations. If the debt is 0 or null please also provide it on your response like Debt Payment: Rp.0. Make the advice is short straight to the point';
 
       final dataBody = jsonEncode({
         "model": "gpt-3.5-turbo",
@@ -56,5 +56,5 @@ class RecService {
     }
 
     return modelData;
-  } 
+  }
 }

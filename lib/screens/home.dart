@@ -26,9 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Stream<int> getTodayExpensesStream() {
     final today = DateTime.now();
     final todayDate =
-        today.day.toString(); // Get today's date in ISO8601 format
-    final todayMonth = today.month.toString(); // Get today's month as a string
-    final todayYear = today.year.toString(); // Get today's year as a string
+        today.day.toString(); 
+    final todayMonth = today.month.toString(); 
+    final todayYear = today.year.toString(); 
 
     return firestoreInstance
         .collection('expenses')
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       int total = 0;
       for (QueryDocumentSnapshot document in snapshot.docs) {
         final data = document.data()
-            as Map<String, dynamic>; // Cast to Map<String, dynamic>
+            as Map<String, dynamic>; 
         if (data.containsKey('itemPrice')) {
           total += (data['itemPrice'] as int);
         }
@@ -52,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Stream<int> getMonthExpensesStream() {
     final today = DateTime.now();
-    final todayMonth = today.month.toString(); // Get today's month as a string
-    final todayYear = today.year.toString(); // Get today's year as a string
+    final todayMonth = today.month.toString(); 
+    final todayYear = today.year.toString(); 
 
     return firestoreInstance
         .collection('expenses')

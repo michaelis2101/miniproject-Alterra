@@ -7,8 +7,6 @@ class ExpenseViewModel extends GetxController {
   final CollectionReference _expensesCollection =
       FirebaseFirestore.instance.collection('expenses');
 
-  // final String currentUserId = ''; // Replace with actual user ID
-
   final String currentUserId;
 
   ExpenseViewModel(this.currentUserId);
