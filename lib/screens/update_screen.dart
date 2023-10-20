@@ -111,25 +111,43 @@ class _UpdateExpensesState extends State<UpdateExpenses> {
     String currentUserId = userC.uid.value;
     final expenseViewModel = ExpenseViewModel(currentUserId);
     return Scaffold(
+      backgroundColor: const Color(0xff26619C),
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          backgroundColor: const Color(0xff26619C),
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.white,
+            ),
+          ),
+          title: const Text(
+            'Update Expenses',
+            style: TextStyle(color: Colors.white),
+          )),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 40,
-            ),
-            const Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Add Expenses",
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.white),
-              ),
-            ),
+            // const SizedBox(
+            //   height: 40,
+            // ),
+            // const Align(
+            //   alignment: Alignment.center,
+            //   child: Text(
+            //     "Add Expenses",
+            //     style: TextStyle(
+            //         fontSize: 25,
+            //         color: Colors.white,
+            //         decoration: TextDecoration.underline,
+            //         decorationColor: Colors.white),
+            //   ),
+            // ),
             const SizedBox(
               height: 10,
             ),

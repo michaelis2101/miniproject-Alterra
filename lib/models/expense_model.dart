@@ -1,6 +1,6 @@
 class Expense {
-  String id;
-  final String userId; // Added userId field
+  final String id;
+  final String userId;
   final String itemDescription;
   final String expensesCategory;
   final String categoryDescription;

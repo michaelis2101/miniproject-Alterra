@@ -4,7 +4,7 @@ import 'package:appk_flutter/models/user_model.dart';
 import 'package:appk_flutter/screens/update_screen.dart';
 import 'package:appk_flutter/viewmodels/expense_vm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -122,7 +122,12 @@ class _ListExpensesState extends State<ListExpenses> {
                               },
                               icon: const Icon(Icons.edit)),
                           IconButton(
-                              onPressed: () => expenseVm.deleteExpense(docId),
+                              onPressed: () {
+                                expenseVm.deleteExpense(docId);
+                                Get.snackbar('Succedd', 'Item Deleted',
+                                    backgroundColor: Colors.white,
+                                    icon: const Icon(Icons.verified_rounded));
+                              },
                               icon: const Icon(Icons.delete)),
                         ],
                       ),

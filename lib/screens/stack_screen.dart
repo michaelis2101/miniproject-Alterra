@@ -32,7 +32,7 @@ class ScreenHandlerState extends State<ScreenHandler> {
         backgroundColor: const Color(0xff26619C),
         animationDuration: const Duration(milliseconds: 300),
         onTap: (index) {
-          print(index);
+          // print(index);
           setState(() {
             _currentIndex = index;
           });

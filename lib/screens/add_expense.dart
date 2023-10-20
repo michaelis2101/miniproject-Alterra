@@ -420,8 +420,23 @@ class _AddExpensesState extends State<AddExpenses> {
                             year: year,
                             month: month,
                             itemPrice: int.parse(priceCont.text));
+                        if (nameCont.text.isEmpty || priceCont.text.isEmpty) {
+                          Get.snackbar('Error', 'Please fill the filled',
+                              backgroundColor: Colors.white,
+                              icon: const Icon(Icons.verified));
+                        } else {
+                          try {
+                            await expenseViewModel.addExpense(addNewEx);
+                          } catch (e) {
+                            Get.snackbar('Error', e.toString(),
+                                backgroundColor: Colors.white,
+                                icon: const Icon(Icons.verified));
+                          }
+                        }
 
-                        await expenseViewModel.addExpense(addNewEx);
+                        Get.snackbar('Success', 'Item Added',
+                            backgroundColor: Colors.white,
+                            icon: const Icon(Icons.verified));
                         setState(() {
                           // selectedClassifiedValue.clear
                           // selectedDescription = '';
