@@ -1,4 +1,5 @@
 import 'package:appk_flutter/models/user_model.dart';
+import 'package:appk_flutter/screens/converter_dart.dart';
 import 'package:appk_flutter/screens/wishlist.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -101,18 +102,20 @@ class _ProfileState extends State<Profile> {
                     BorderSide(width: 1, color: Colors.white.withOpacity(0.5))),
             child: ListTile(
               title: const Text(
-                'News/?',
+                'Currency Converter',
                 style: TextStyle(color: Colors.white),
               ),
               leading: const Icon(
-                Icons.newspaper,
+                Icons.currency_exchange_rounded,
                 color: Colors.white,
               ),
               trailing: const Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: Colors.white,
               ),
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const Converter());
+              },
             ),
           ),
           Container(

@@ -46,6 +46,7 @@ dependencies:
   envied: ^0.3.0+3
   sqflite: ^2.3.0
   path_provider: ^2.1.1
+  dio: ^5.3.3
   
 
 dev_dependencies:
