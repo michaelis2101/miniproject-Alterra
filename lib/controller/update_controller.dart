@@ -2,9 +2,9 @@ import 'package:appk_flutter/models/expense_model.dart';
 import 'package:get/get.dart';
 
 class ExpenseController extends GetxController {
-  // Initialize selectedExpense with default values for required fields
+  
   var selectedExpense = Expense(
-    id: '', // Provide default values or leave them empty as needed
+    id: '', 
     userId: '',
     itemDescription: '',
     expensesCategory: '',

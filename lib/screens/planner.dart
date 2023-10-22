@@ -17,6 +17,7 @@ class _PlannerState extends State<Planner> {
   TextEditingController debtCont = TextEditingController();
   TextEditingController debtPayCont = TextEditingController();
   TextEditingController goalCont = TextEditingController();
+  TextEditingController goalPriceCont = TextEditingController();
   bool _isLoading = false;
 
   void getRecommendation() async {
@@ -27,11 +28,12 @@ class _PlannerState extends State<Planner> {
     try {
       final result = await RecService.getRec(
           income: incomeCont.text,
-          days: daysCont.text.isEmpty ? '30' : daysCont.text,
+          // days: daysCont.text.isEmpty ? '30' : daysCont.text,
           savings: savingsCont.text.isEmpty ? '0' : savingsCont.text,
           debt: debtCont.text.isEmpty ? '0' : debtCont.text,
           monthlyDebtPayment: debtCont.text.isEmpty ? '0' : debtPayCont.text,
-          goal: goalCont.text.isEmpty ? 'nothing' : goalCont.text);
+          goal: goalCont.text.isEmpty ? 'nothing' : goalCont.text,
+          goalPrice: goalPriceCont.text.isEmpty ? '0' : goalPriceCont.text);
 
       if (mounted) {
         Get.to(() => ResultPage(gptResponseData: result));
@@ -120,34 +122,34 @@ class _PlannerState extends State<Planner> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        'For how Many Days',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      )),
-                  TextField(
-                    controller: daysCont,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      prefixIconColor: Color(0xff26619C),
-                      labelStyle: TextStyle(color: Color(0xff26619C)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1.0, color: Color(0xff26619C)),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      focusColor: Color(0xff26619C),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      hintText: 'Enter your monthly income',
-                      prefixIcon: Icon(Icons.calendar_today_rounded),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  // const Align(
+                  //     alignment: Alignment.bottomLeft,
+                  //     child: Text(
+                  //       'For how Many Days',
+                  //       style: TextStyle(color: Colors.white, fontSize: 20),
+                  //     )),
+                  // TextField(
+                  //   controller: daysCont,
+                  //   decoration: const InputDecoration(
+                  //     filled: true,
+                  //     fillColor: Colors.white,
+                  //     prefixIconColor: Color(0xff26619C),
+                  //     labelStyle: TextStyle(color: Color(0xff26619C)),
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderSide:
+                  //             BorderSide(width: 1.0, color: Color(0xff26619C)),
+                  //         borderRadius: BorderRadius.all(Radius.circular(10))),
+                  //     focusColor: Color(0xff26619C),
+                  //     border: OutlineInputBorder(
+                  //         borderSide: BorderSide(width: 1.0),
+                  //         borderRadius: BorderRadius.all(Radius.circular(10))),
+                  //     hintText: 'Enter your monthly income',
+                  //     prefixIcon: Icon(Icons.calendar_today_rounded),
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
                   const Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(
@@ -252,6 +254,11 @@ class _PlannerState extends State<Planner> {
                       )),
                   TextField(
                     controller: goalCont,
+                    onChanged: (value) {
+                      setState(() {
+                        goalCont.text = value;
+                      });
+                    },
                     decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -270,6 +277,38 @@ class _PlannerState extends State<Planner> {
                       // prefixIcon: Icon(Icons.mone),
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  if (goalCont.text.isNotEmpty)
+                    const Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          'Goal/Wish Price',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        )),
+                  if (goalCont.text.isNotEmpty)
+                    TextField(
+                      controller: goalPriceCont,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIconColor: Color(0xff26619C),
+                        labelStyle: TextStyle(color: Color(0xff26619C)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 1.0, color: Color(0xff26619C)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        focusColor: Color(0xff26619C),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1.0),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        hintText: 'Enter your monthly income',
+                        // prefixIcon: Icon(Icons.calendar_today_rounded),
+                      ),
+                    ),
                   const SizedBox(
                     height: 10,
                   ),

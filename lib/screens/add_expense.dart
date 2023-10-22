@@ -175,7 +175,9 @@ class _AddExpensesState extends State<AddExpenses> {
                   value: selectedClassifiedValue,
                   onChanged: (value) {
                     setState(() {
+                      // selectedClassifiedValue = null;
                       selectedClassifiedValue = value;
+                      selectedDescription = null;
                     });
                     print(selectedClassifiedValue);
                   },
@@ -244,6 +246,7 @@ class _AddExpensesState extends State<AddExpenses> {
                     value: selectedDescription,
                     onChanged: (value) {
                       setState(() {
+                        // selectedDescription = null;
                         selectedDescription = value;
                       });
                       print(selectedDescription);

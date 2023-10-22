@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:appk_flutter/models/openai_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,18 @@ class ResultPage extends StatelessWidget {
     String resultRec = gptResponseData.choices[0].message.content;
 
     List<String> recList = resultRec.split('\n');
+    // List<String> recList = resultRec.split(', ');
+
+    // var jsonData = json.decode(resultRec);
+
+    // String food = jsonData['food'];
+    // String bills = jsonData['bills'];
+    // String savings = jsonData['savings'];
+    // String transportation = jsonData['transportation'];
+    // String entertainment = jsonData['entertainment'];
+    // String miscellaneous = jsonData['miscellaneous'];
+    // String debtPayment = jsonData['debtpayment'];
+    // String advice = jsonData['Advice'];
 
     print(resultRec);
 
@@ -71,10 +85,7 @@ class ResultPage extends StatelessWidget {
                           subtitle: Text(money),
                         );
                       } else {
-                        return ListTile(
-                          title: const Text('Invalid format'),
-                          subtitle: Container(),
-                        );
+                        return const SizedBox();
                       }
                     }).toList(),
                   ),
