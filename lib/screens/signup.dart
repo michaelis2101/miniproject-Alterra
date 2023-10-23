@@ -1,3 +1,4 @@
+import 'package:appk_flutter/screens/login_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -246,21 +247,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
         builder: (context) => const Center(
               child: CircularProgressIndicator(),
             ));
-
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailCont.text,
         password: repeatPwCont.text,
       );
+
+      // Get.to(LoggedInHandler());
+
       // The success should be shown here, and the circular progress indicator should be dismissed
       FirebaseAuth.instance.signOut();
-      Get.back();
       Get.snackbar('Success', 'Account Created, Please Login',
           backgroundColor: Colors.white, icon: const Icon(Icons.check));
+      Get.back();
     } on FirebaseAuthException catch (e) {
       // Error snackbar should be shown for Firebase exceptions
       Get.snackbar('Error', e.message.toString(),
           backgroundColor: Colors.white, icon: const Icon(Icons.error));
     }
+
+    Get.back();
   }
 }

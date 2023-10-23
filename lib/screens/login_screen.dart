@@ -183,7 +183,8 @@ class _LoginScreenState extends State<LoginScreen> {
       print(e);
     }
 
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
+    Get.back();
 
     // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
