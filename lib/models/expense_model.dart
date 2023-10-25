@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Expense {
   final String id;
   final String userId;
@@ -8,6 +10,7 @@ class Expense {
   final String year;
   final String month;
   final int itemPrice;
+  final Timestamp? createdAt;
 
   Expense({
     required this.id,
@@ -19,5 +22,6 @@ class Expense {
     required this.year,
     required this.month,
     required this.itemPrice,
+    this.createdAt
   });
 }

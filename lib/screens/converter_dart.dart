@@ -25,6 +25,10 @@ class _ConverterState extends State<Converter> {
   String? selectedCurrency = 'IDR';
   String? toSelectedCurrency;
 
+  String? resultFrom = '';
+  String? resultTo = '';
+  String? conversionRate = '';
+
   Future<void> fetchCurrency(String selectCur) async {
     try {
       final response = await Dio()
@@ -42,6 +46,9 @@ class _ConverterState extends State<Converter> {
           double conversionResult = responseData['conversion_result'];
           setState(() {
             result = '$selectCur. ${conversionResult.toString()}';
+            resultFrom = responseData['base_code'].toString();
+            resultTo = responseData['target_code'].toString();
+            conversionRate = responseData['conversion_rate'].toString();
           });
         } else {
           setState(() {
@@ -295,21 +302,21 @@ class _ConverterState extends State<Converter> {
                 const SizedBox(
                   height: 10,
                 ),
-                if (result.isNotEmpty)
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      decoration: const BoxDecoration(color: Colors.white),
-                      child: Text(
-                        result.toString(),
-                        style: const TextStyle(
-                            color: Color(0xff26619C), fontSize: 30),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                // if (result.isNotEmpty)
+                //   ClipRRect(
+                //     borderRadius: const BorderRadius.all(Radius.circular(10)),
+                //     child: Container(
+                //       width: MediaQuery.of(context).size.width,
+                //       height: 50,
+                //       decoration: const BoxDecoration(color: Colors.white),
+                //       child: Text(
+                //         result.toString(),
+                //         style: const TextStyle(
+                //             color: Color(0xff26619C), fontSize: 30),
+                //         textAlign: TextAlign.center,
+                //       ),
+                //     ),
+                //   ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -353,6 +360,46 @@ class _ConverterState extends State<Converter> {
                           });
                         },
                         child: const Text('Reset')),
+                  ),
+
+                const SizedBox(
+                  height: 10,
+                ),
+
+                if (result.isNotEmpty)
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Your Conversion Result:',
+                            style: TextStyle(
+                                fontSize: 25, color: Color(0xff26619C)),
+                          ),
+                          Text(
+                            'From $resultFrom to $resultTo',
+                            style: const TextStyle(color: Color(0xff26619C)),
+                          ),
+                          // Text(),
+                          Text(
+                            result.toString(),
+                            style: const TextStyle(
+                                color: Color(0xff26619C), fontSize: 30),
+                            textAlign: TextAlign.center,
+                          ),
+                          // Text('From $resultFrom to $resultTo', style: const TextStyle(color: Color(0xff26619C)),),
+                          Text(
+                            'Conversion Rate : $conversionRate',
+                            style: const TextStyle(color: Color(0xff26619C)),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
               ],
             ),

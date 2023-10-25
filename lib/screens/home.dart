@@ -1,4 +1,5 @@
 import 'package:appk_flutter/models/user_model.dart';
+import 'package:appk_flutter/viewmodels/sum_vm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,56 +24,56 @@ class _HomeScreenState extends State<HomeScreen> {
     c.setUserUid(userInformation.uid);
   }
 
-  Stream<int> getTodayExpensesStream() {
-    final today = DateTime.now();
-    final todayDate =
-        today.day.toString(); 
-    final todayMonth = today.month.toString(); 
-    final todayYear = today.year.toString(); 
+  // Stream<int> getTodayExpensesStream() {
+  //   final today = DateTime.now();
+  //   final todayDate = today.day.toString();
+  //   final todayMonth = today.month.toString();
+  //   final todayYear = today.year.toString();
 
-    return firestoreInstance
-        .collection('expenses')
-        .where('date', isEqualTo: todayDate)
-        .where('month', isEqualTo: todayMonth)
-        .where('year', isEqualTo: todayYear)
-        .where('userId', isEqualTo: c.uid.toString())
-        .snapshots()
-        .map<int>((snapshot) {
-      int total = 0;
-      for (QueryDocumentSnapshot document in snapshot.docs) {
-        final data = document.data()
-            as Map<String, dynamic>; 
-        if (data.containsKey('itemPrice')) {
-          total += (data['itemPrice'] as int);
-        }
-      }
-      return total;
-    });
-  }
+  //   return firestoreInstance
+  //       .collection('expenses')
+  //       .where('date', isEqualTo: todayDate)
+  //       .where('month', isEqualTo: todayMonth)
+  //       .where('year', isEqualTo: todayYear)
+  //       .where('userId', isEqualTo: c.uid.toString())
+  //       .snapshots()
+  //       .map<int>((snapshot) {
+  //     int total = 0;
+  //     for (QueryDocumentSnapshot document in snapshot.docs) {
+  //       final data = document.data() as Map<String, dynamic>;
+  //       if (data.containsKey('itemPrice')) {
+  //         total += (data['itemPrice'] as int);
+  //       }
+  //     }
+  //     return total;
+  //   });
+  // }
 
-  Stream<int> getMonthExpensesStream() {
-    final today = DateTime.now();
-    final todayMonth = today.month.toString(); 
-    final todayYear = today.year.toString(); 
+  // Stream<int> getMonthExpensesStream() {
+  //   final today = DateTime.now();
+  //   final todayMonth = today.month.toString();
+  //   final todayYear = today.year.toString();
 
-    return firestoreInstance
-        .collection('expenses')
-        .where('month', isEqualTo: todayMonth)
-        .where('year', isEqualTo: todayYear)
-        .where('userId', isEqualTo: c.uid.toString())
-        .snapshots()
-        .map<int>((snapshot) {
-      int total = 0;
-      for (QueryDocumentSnapshot document in snapshot.docs) {
-        final data = document.data()
-            as Map<String, dynamic>; // Cast to Map<String, dynamic>
-        if (data.containsKey('itemPrice')) {
-          total += (data['itemPrice'] as int);
-        }
-      }
-      return total;
-    });
-  }
+  //   return firestoreInstance
+  //       .collection('expenses')
+  //       .where('month', isEqualTo: todayMonth)
+  //       .where('year', isEqualTo: todayYear)
+  //       .where('userId', isEqualTo: c.uid.toString())
+  //       .snapshots()
+  //       .map<int>((snapshot) {
+  //     int total = 0;
+  //     for (QueryDocumentSnapshot document in snapshot.docs) {
+  //       final data = document.data()
+  //           as Map<String, dynamic>; // Cast to Map<String, dynamic>
+  //       if (data.containsKey('itemPrice')) {
+  //         total += (data['itemPrice'] as int);
+  //       }
+  //     }
+  //     return total;
+  //   });
+  // }
+
+  SumViewModel sum = SumViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: const Color(0xff26619C),
         ),
         StreamBuilder<int>(
-          stream: getTodayExpensesStream(),
+          stream: sum.getTodayExpensesStream(c.uid.toString()),
+          // stream: getTodayExpensesStream(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -119,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Rp.$totalTodayExpenses.toString()}',
+                              'Rp.$totalTodayExpenses',
                               style: const TextStyle(
                                   fontSize: 35, color: Color(0xff26619C)),
                             ))
@@ -132,11 +134,13 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
         StreamBuilder<int>(
-          stream: getMonthExpensesStream(),
+          stream: sum.getMonthExpensesStream(c.uid.toString()),
+          // stream: getMonthExpensesStream(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
+              print(snapshot.error);
               return Text('Error: ${snapshot.error}');
             } else {
               final totalMonthExpenses = snapshot.data ?? 0;

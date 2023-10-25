@@ -422,7 +422,9 @@ class _AddExpensesState extends State<AddExpenses> {
                             date: date,
                             year: year,
                             month: month,
-                            itemPrice: int.parse(priceCont.text));
+                            itemPrice: int.parse(priceCont.text),
+                            createdAt: null
+                            );
                         if (nameCont.text.isEmpty || priceCont.text.isEmpty) {
                           Get.snackbar('Error', 'Please fill the filled',
                               backgroundColor: Colors.white,

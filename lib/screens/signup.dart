@@ -1,6 +1,7 @@
-import 'package:appk_flutter/screens/login_handler.dart';
+// import 'package:appk_flutter/screens/login_handler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -17,6 +18,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   bool hidePw = false;
   bool reHidePw = false;
+
+  Color lapisLazuli = const Color(0xff26619C);
 
   bool isValidEmail(String email) {
     // Define a regular expression for email validation
@@ -214,6 +217,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         icon: const Icon(Icons.warning));
                                   } else {
                                     signUp();
+                                    Get.snackbar('Success',
+                                        'Account Created, Please Login',
+                                        backgroundColor: Colors.white,
+                                        icon: const Icon(Icons.check));
+                                    Get.back();
                                   }
                                 }
                               }
@@ -253,17 +261,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password: repeatPwCont.text,
       );
 
-      // Get.to(LoggedInHandler());
+      // await Future.delayed(const Duration(seconds: 1));
 
-      // The success should be shown here, and the circular progress indicator should be dismissed
+      // Get.to(LoggedInHandler());
       FirebaseAuth.instance.signOut();
-      Get.snackbar('Success', 'Account Created, Please Login',
-          backgroundColor: Colors.white, icon: const Icon(Icons.check));
-      Get.back();
+      // Get.snackbar('Success', 'Account Created, Please Login',
+      //     backgroundColor: Colors.white, icon: const Icon(Icons.check));
+      // Get.back();
     } on FirebaseAuthException catch (e) {
       // Error snackbar should be shown for Firebase exceptions
-      Get.snackbar('Error', e.message.toString(),
-          backgroundColor: Colors.white, icon: const Icon(Icons.error));
+      if (e.code == 'email-already-in-use') {
+        Fluttertoast.showToast(msg: "Email Already In Use", backgroundColor: Colors.white, textColor: lapisLazuli);
+      } else if (e.code == 'invalid-email') {
+        Fluttertoast.showToast(msg: "Email Format Invalid",
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
+      } else if (e.code == 'operation-not-allowed') {
+        Fluttertoast.showToast(msg: "Operation Denies",
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
+      } else if (e.code == 'weak-password') {
+        Fluttertoast.showToast(msg: 'Password Weak',
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
+      }
+      // Get.snackbar('Error', e.message.toString(),
+      //     backgroundColor: Colors.white, icon: const Icon(Icons.error));
     }
 
     Get.back();

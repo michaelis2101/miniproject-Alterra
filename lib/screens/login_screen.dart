@@ -1,10 +1,11 @@
-import 'package:appk_flutter/main.dart';
-import 'package:appk_flutter/screens/login_handler.dart';
+// import 'package:appk_flutter/main.dart';
+// import 'package:appk_flutter/screens/login_handler.dart';
 import 'package:appk_flutter/screens/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailCont = TextEditingController();
   TextEditingController passwordCont = TextEditingController();
   bool hidePw = false;
+  Color lapisLazuli = const Color(0xff26619C);
 
   @override
   void initState() {
@@ -48,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 200,
               width: 200,
               child: ClipRRect(
+                  key: const Key('appLogo'),
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset('assets/images/appklogo.png')),
             ),
@@ -177,10 +180,37 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       // Get.offAll(() => const LoggedInHandler());
     } on FirebaseAuthException catch (e) {
-      Get.snackbar('Error', e.message.toString(),
-          backgroundColor: Colors.white, icon: const Icon(Icons.error));
+      print(e.code);
+      // Get.snackbar('Error', e.message.toString(),
+      //     backgroundColor: Colors.white, icon: const Icon(Icons.error));
 
-      print(e);
+      // Get.snackbar('Error', e.message ?? 'An error occurred',
+      //     backgroundColor: Colors.white, icon: const Icon(Icons.error));
+      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+        // Get.snackbar('Error', 'Invalid email or password',
+        //     backgroundColor: Colors.white, icon: const Icon(Icons.error));
+        Fluttertoast.showToast(
+            msg: "invalid email or password",
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
+      } else if (e.code == 'too-many-requests') {
+        Fluttertoast.showToast(
+            msg: "Stop Spamming Login Idiot",
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
+      } else if (e.code == 'invalid-email') {
+        Fluttertoast.showToast(
+            msg: "Email Format Invalid",
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
+      } else if (e.code == 'user-disabled') {
+        Fluttertoast.showToast(
+            msg: "User Disabled, Contact Feveloper For Information",
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
+      }
+
+      // print(e);
     }
 
     // Navigator.of(context).pop();

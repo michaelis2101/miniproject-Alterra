@@ -42,6 +42,7 @@ class _ListExpensesState extends State<ListExpenses> {
     final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
         .collection('expenses')
         .where('userId', isEqualTo: userC.uid.toString())
+        .orderBy('createdAt', descending: true)
         .snapshots();
 
     final ExpenseViewModel expenseVm =
@@ -51,6 +52,7 @@ class _ListExpensesState extends State<ListExpenses> {
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
+            print(snapshot.error);
             return const Text('Something went wrong');
           }
 
@@ -61,8 +63,29 @@ class _ListExpensesState extends State<ListExpenses> {
           }
 
           if (snapshot.data!.docs.isEmpty) {
-            return const Center(
-              child: Text("Data Empty"),
+            return Center(
+              // child: Text("Data Empty"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Opacity(
+                    opacity: 0.5,
+                    child: SizedBox(
+                        width: 116.5,
+                        height: 78.125,
+                        child: Image.asset(
+                          'assets/images/data-empty.png',
+                        )),
+                  ),
+                  const Opacity(
+                    opacity: 0.5,
+                    child: Text(
+                      'Data is Empty',
+                      style: TextStyle(color: Colors.white, fontSize: 35),
+                    ),
+                  )
+                ],
+              ),
             );
           }
 

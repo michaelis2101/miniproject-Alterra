@@ -11,6 +11,8 @@ class ExpenseViewModel extends GetxController {
 
   ExpenseViewModel(this.currentUserId);
 
+  final currentTimestamp = Timestamp.now();
+
   RxList<Expense> expenses = <Expense>[].obs;
 
   @override
@@ -25,37 +27,37 @@ class ExpenseViewModel extends GetxController {
         .get();
     expenses.value = querySnapshot.docs
         .map((doc) => Expense(
-              id: doc.id,
-              userId: doc['userId'],
-              itemDescription: doc['itemDescription'],
-              expensesCategory: doc['expensesCategory'],
-              categoryDescription: doc['categoryDescription'],
-              date: doc['date'],
-              year: doc['year'],
-              month: doc['month'],
-              itemPrice: doc['itemPrice'].toInt(),
-            ))
+            id: doc.id,
+            userId: doc['userId'],
+            itemDescription: doc['itemDescription'],
+            expensesCategory: doc['expensesCategory'],
+            categoryDescription: doc['categoryDescription'],
+            date: doc['date'],
+            year: doc['year'],
+            month: doc['month'],
+            itemPrice: doc['itemPrice'].toInt(),
+            createdAt: doc['createdAt']))
         .toList();
   }
 
-  Future<void> loadAllExpenses() async {
-    final querySnapshot = await _expensesCollection
-        .where('userId', isEqualTo: currentUserId)
-        .get();
-    expenses.value = querySnapshot.docs
-        .map((doc) => Expense(
-              id: doc.id,
-              userId: doc['userId'],
-              itemDescription: doc['itemDescription'],
-              expensesCategory: doc['expensesCategory'],
-              categoryDescription: doc['categoryDescription'],
-              date: doc['date'],
-              year: doc['year'],
-              month: doc['month'],
-              itemPrice: doc['itemPrice'].toInt(),
-            ))
-        .toList();
-  }
+  // Future<void> loadAllExpenses() async {
+  //   final querySnapshot = await _expensesCollection
+  //       .where('userId', isEqualTo: currentUserId)
+  //       .get();
+  //   expenses.value = querySnapshot.docs
+  //       .map((doc) => Expense(
+  //             id: doc.id,
+  //             userId: doc['userId'],
+  //             itemDescription: doc['itemDescription'],
+  //             expensesCategory: doc['expensesCategory'],
+  //             categoryDescription: doc['categoryDescription'],
+  //             date: doc['date'],
+  //             year: doc['year'],
+  //             month: doc['month'],
+  //             itemPrice: doc['itemPrice'].toInt(),
+  //           ))
+  //       .toList();
+  // }
 
   Future<void> addExpense(Expense expense) async {
     await _expensesCollection.add({
@@ -67,6 +69,7 @@ class ExpenseViewModel extends GetxController {
       'year': expense.year,
       'month': expense.month,
       'itemPrice': expense.itemPrice,
+      'createdAt': currentTimestamp
     });
     _loadExpenses();
   }

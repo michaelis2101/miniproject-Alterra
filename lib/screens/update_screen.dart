@@ -134,20 +134,6 @@ class _UpdateExpensesState extends State<UpdateExpenses> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // const SizedBox(
-            //   height: 40,
-            // ),
-            // const Align(
-            //   alignment: Alignment.center,
-            //   child: Text(
-            //     "Add Expenses",
-            //     style: TextStyle(
-            //         fontSize: 25,
-            //         color: Colors.white,
-            //         decoration: TextDecoration.underline,
-            //         decorationColor: Colors.white),
-            //   ),
-            // ),
             const SizedBox(
               height: 10,
             ),
