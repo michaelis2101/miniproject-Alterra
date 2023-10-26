@@ -130,7 +130,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 50,
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: logIn,
+                            onPressed: () {
+                              if (emailCont.text.isEmpty ||
+                                  passwordCont.text.isEmpty) {
+                                Get.snackbar(
+                                    "Warning", "Email or password is empty",
+                                    backgroundColor: Colors.white,
+                                    icon: const Icon(Icons.warning_rounded));
+                              } else {
+                                logIn();
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xff26619C),
                                 // minimumSize: const Size.fromHeight(50),
@@ -195,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
             textColor: lapisLazuli);
       } else if (e.code == 'too-many-requests') {
         Fluttertoast.showToast(
-            msg: "Stop Spamming Login Idiot",
+            msg: "Too many request",
             backgroundColor: Colors.white,
             textColor: lapisLazuli);
       } else if (e.code == 'invalid-email') {

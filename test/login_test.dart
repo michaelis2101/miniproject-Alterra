@@ -16,19 +16,6 @@ void main() {
     expect(find.widgetWithText(ElevatedButton, 'Login'), findsOneWidget);
   });
 
-  // testWidgets('App logo', (WidgetTester test) async {
-  //   await test.pumpWidget(const MaterialApp(
-  //     home: LoginScreen(),
-  //   ));
-
-  //   // expect(find.image(FileImage(File('assets/images/appklogo.png'))),
-  //   //     findsOneWidget);
-  //   expect(
-  //       find.widgetWithImage(
-  //           ClipRRect, FileImage(File('assets/images/appklogo.png'))),
-  //       findsOneWidget);
-  // });
-
   testWidgets('App logo', (WidgetTester test) async {
     await test.pumpWidget(const MaterialApp(
       home: LoginScreen(),
@@ -63,7 +50,7 @@ void main() {
     expect(find.widgetWithText(TextField, 'Password'), findsOneWidget);
   });
 
-  testWidgets('TextField password', (WidgetTester test) async {
+  testWidgets('Button Signup', (WidgetTester test) async {
     await test.pumpWidget(const MaterialApp(
       home: LoginScreen(),
     ));

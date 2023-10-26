@@ -1,3 +1,4 @@
+import 'package:appk_flutter/components/confirmsheet_so.dart';
 import 'package:appk_flutter/models/user_model.dart';
 import 'package:appk_flutter/screens/converter_dart.dart';
 import 'package:appk_flutter/screens/wishlist.dart';
@@ -137,7 +138,8 @@ class _ProfileState extends State<Profile> {
                 Icons.arrow_forward_ios_rounded,
                 color: Colors.white,
               ),
-              onTap: () => FirebaseAuth.instance.signOut(),
+              onTap: () => showModalBottomSheet(
+                  context: context, builder: (context) => const LogoutSheet()),
             ),
           ),
 

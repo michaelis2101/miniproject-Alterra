@@ -158,6 +158,7 @@ class _PlannerState extends State<Planner> {
                       )),
                   TextField(
                     controller: savingsCont,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -186,6 +187,7 @@ class _PlannerState extends State<Planner> {
                       )),
                   TextField(
                     controller: debtCont,
+                    keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
                         debtCont.text = value;
@@ -223,6 +225,7 @@ class _PlannerState extends State<Planner> {
                   if (debtCont.text.isNotEmpty)
                     TextField(
                       controller: debtPayCont,
+                      keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -272,8 +275,7 @@ class _PlannerState extends State<Planner> {
                       border: OutlineInputBorder(
                           borderSide: BorderSide(width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-                      hintText:
-                          'leave blank or fill with 0 if you dont have debt',
+                      hintText: 'Enter Your Goal/Wish',
                       // prefixIcon: Icon(Icons.mone),
                     ),
                   ),
@@ -290,6 +292,7 @@ class _PlannerState extends State<Planner> {
                   if (goalCont.text.isNotEmpty)
                     TextField(
                       controller: goalPriceCont,
+                      keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -305,7 +308,7 @@ class _PlannerState extends State<Planner> {
                             borderSide: BorderSide(width: 1.0),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        hintText: 'Enter your monthly income',
+                        hintText: 'Enter your Goal Price',
                         // prefixIcon: Icon(Icons.calendar_today_rounded),
                       ),
                     ),

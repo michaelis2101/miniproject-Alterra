@@ -194,16 +194,17 @@ class _ConverterState extends State<Converter> {
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   width: 1.0, color: Color(0xff26619C)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  bottomRight: Radius.circular(10))),
                           focusColor: Color(0xff26619C),
                           border: OutlineInputBorder(
                               borderSide: BorderSide(width: 1.0),
                               borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(10),
                                   bottomRight: Radius.circular(10))),
-                          hintText: 'Name of something you buy',
-                          prefixIcon: Icon(Icons.local_grocery_store),
+                          // hintText: '500...',
+                          // prefixIcon: Icon(Icons.local_grocery_store),
                         ),
                       ),
                     )
@@ -341,7 +342,10 @@ class _ConverterState extends State<Converter> {
 
                           fetchCurrency(codeCur);
                         },
-                        child: const Text('Submit')),
+                        child: const Text(
+                          'Submit',
+                          style: TextStyle(color: Color(0xff26619C)),
+                        )),
                   ),
                 if (result.isNotEmpty)
                   SizedBox(

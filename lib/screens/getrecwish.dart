@@ -1,4 +1,5 @@
 import 'package:appk_flutter/controller/wishlist_upstate.dart';
+import 'package:appk_flutter/models/openai_model.dart';
 import 'package:appk_flutter/screens/rec_result.dart';
 import 'package:appk_flutter/services/recommendation.dart';
 import 'package:flutter/material.dart';
@@ -88,6 +89,7 @@ class _PlannerFromWish extends State<PlannerFromWish> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: const Color(0xff26619C),
       appBar: AppBar(

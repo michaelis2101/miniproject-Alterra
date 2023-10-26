@@ -1,3 +1,4 @@
+import 'package:appk_flutter/components/confirmheet_ex.dart';
 import 'package:appk_flutter/controller/update_controller.dart';
 import 'package:appk_flutter/models/expense_model.dart';
 import 'package:appk_flutter/models/user_model.dart';
@@ -146,10 +147,16 @@ class _ListExpensesState extends State<ListExpenses> {
                               icon: const Icon(Icons.edit)),
                           IconButton(
                               onPressed: () {
-                                expenseVm.deleteExpense(docId);
-                                Get.snackbar('Succedd', 'Item Deleted',
-                                    backgroundColor: Colors.white,
-                                    icon: const Icon(Icons.verified_rounded));
+                                // expenseVm.deleteExpense(docId);
+                                // Get.snackbar('Succedd', 'Item Deleted',
+                                //     backgroundColor: Colors.white,
+                                //     icon: const Icon(Icons.verified_rounded));
+
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => ExpenseConfirmSheet(
+                                        docID: docId,
+                                        desc: data['itemDescription']));
                               },
                               icon: const Icon(Icons.delete)),
                         ],

@@ -1,3 +1,4 @@
+import 'package:appk_flutter/components/confirmsheet_wl.dart';
 import 'package:appk_flutter/controller/wishlist_upstate.dart';
 import 'package:appk_flutter/models/user_model.dart';
 import 'package:appk_flutter/models/wishlist_model.dart';
@@ -43,10 +44,27 @@ class _WishlistScreenState extends State<WishlistScreen> {
       ),
       body: Obx(() {
         if (wishlistController.items.isEmpty) {
-          return const Center(
-            child: Text(
-              'No items found',
-              style: TextStyle(fontSize: 30),
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Opacity(
+                  opacity: 0.5,
+                  child: SizedBox(
+                      width: 116.5,
+                      height: 78.125,
+                      child: Image.asset(
+                        'assets/images/data-empty.png',
+                      )),
+                ),
+                const Opacity(
+                  opacity: 0.5,
+                  child: Text(
+                    'Data is Empty',
+                    style: TextStyle(color: Colors.white, fontSize: 35),
+                  ),
+                )
+              ],
             ),
           );
         } else {
@@ -73,8 +91,10 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       trailing: Wrap(children: [
                         IconButton(
                             onPressed: () {
-                              wishlistController.deleteWishListItem(
-                                  wishlist.id!, userid);
+                              // wishlistController.deleteWishListItem(
+                              //     wishlist.id!, userid);
+                              showModalBottomSheet(context: context, builder: (context)=>WishConfirmSheet(userId: userid, wishId: wishlist.id!, wishName: wishlist.itemname.toString()));
+
                             },
                             icon: const Icon(Icons.delete)),
                         IconButton(

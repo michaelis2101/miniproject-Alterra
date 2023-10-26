@@ -43,6 +43,15 @@ class _AddWishlistState extends State<AddWishlist> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameCont.dispose();
+    priceCont.dispose();
+    descCont.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff26619C),
@@ -174,10 +183,10 @@ class _AddWishlistState extends State<AddWishlist> {
                             icon: const Icon(Icons.warning));
                       } else {
                         _addWishlist();
+                        Get.back();
                         Get.snackbar('Success', 'Item Added To the Wishlist',
                             backgroundColor: Colors.white,
                             icon: const Icon(Icons.verified));
-                        Get.back();
                       }
                     },
                     child: const Text(
@@ -192,7 +201,7 @@ class _AddWishlistState extends State<AddWishlist> {
     );
   }
 
-  void _addWishlist() {
+  void _addWishlist() async {
     String userid = c.uid.toString();
     final itemName = nameCont.text;
     final itemPrice = priceCont.text;
@@ -204,7 +213,7 @@ class _AddWishlistState extends State<AddWishlist> {
         itemname: nameCont.text,
         description: descCont.text,
         price: itemPrice);
-    wishlistCont.addItemToWishList(newWishlist, userid);
+    await wishlistCont.addItemToWishList(newWishlist, userid);
     // Get.snackbar('Success', 'Item Added To the Wishlist',
     //     backgroundColor: Colors.white, icon: const Icon(Icons.verified));
   }

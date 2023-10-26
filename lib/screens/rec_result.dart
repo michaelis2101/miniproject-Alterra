@@ -95,26 +95,26 @@ class ResultPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 8.0, left: 8, right: 8, bottom: 15),
-              child: SizedBox(
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(color: Colors.white),
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () {},
-                    child: const Text(
-                      'Add Recommendation to Plan',
-                      style: TextStyle(color: Color(0xff26619C)),
-                    )),
-              ),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //       top: 8.0, left: 8, right: 8, bottom: 15),
+            //   child: SizedBox(
+            //     height: 50,
+            //     width: MediaQuery.of(context).size.width,
+            //     child: ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           textStyle: const TextStyle(color: Colors.white),
+            //           backgroundColor: Colors.white,
+            //           shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(10)),
+            //         ),
+            //         onPressed: () {},
+            //         child: const Text(
+            //           'Add Recommendation to Plan',
+            //           style: TextStyle(color: Color(0xff26619C)),
+            //         )),
+            //   ),
+            // )
           ],
         ),
       ),

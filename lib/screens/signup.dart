@@ -264,24 +264,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // await Future.delayed(const Duration(seconds: 1));
 
       // Get.to(LoggedInHandler());
-      FirebaseAuth.instance.signOut();
+      await FirebaseAuth.instance.signOut();
       // Get.snackbar('Success', 'Account Created, Please Login',
       //     backgroundColor: Colors.white, icon: const Icon(Icons.check));
       // Get.back();
+      Fluttertoast.showToast(
+          msg: "Account Created, Please Login",
+          backgroundColor: Colors.white,
+          textColor: lapisLazuli);
+      Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       // Error snackbar should be shown for Firebase exceptions
       if (e.code == 'email-already-in-use') {
-        Fluttertoast.showToast(msg: "Email Already In Use", backgroundColor: Colors.white, textColor: lapisLazuli);
+        Fluttertoast.showToast(
+            msg: "Email Already In Use",
+            backgroundColor: Colors.white,
+            textColor: lapisLazuli);
       } else if (e.code == 'invalid-email') {
-        Fluttertoast.showToast(msg: "Email Format Invalid",
+        Fluttertoast.showToast(
+            msg: "Email Format Invalid",
             backgroundColor: Colors.white,
             textColor: lapisLazuli);
       } else if (e.code == 'operation-not-allowed') {
-        Fluttertoast.showToast(msg: "Operation Denies",
+        Fluttertoast.showToast(
+            msg: "Operation Denies",
             backgroundColor: Colors.white,
             textColor: lapisLazuli);
       } else if (e.code == 'weak-password') {
-        Fluttertoast.showToast(msg: 'Password Weak',
+        Fluttertoast.showToast(
+            msg: 'Password Weak',
             backgroundColor: Colors.white,
             textColor: lapisLazuli);
       }
